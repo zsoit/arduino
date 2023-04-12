@@ -18,25 +18,37 @@ Próg jest ustalany po wciśnięciu przycisku (jako bieżąca temperatura)
 # POLECENIA ARDUINO
 
 
-## void SETUP ()
-- ustawienie PINU
-```
+## 1. VOID SETUP ()
+
+### ustawienie PINU
+```c
 int dioda1 = 14;
 int przycisk1 = 20;
 
-pinMode(dioda1,OUTPUT);
-pinMode(przycisk,INPUT);
+void setup()
+{
+    pinMode(dioda1,OUTPUT);
+    pinMode(przycisk,INPUT);
+}
 ```
-- ustwienie czujnika MAX6675
+
+### ustawienia czujnika MAX6675
+```c
+#include <SPI.h>
+SPISettings parSPI(10000000,MSBFIRST,SPI,MODE0);
+
+void setup()
+{
+    SPI.begin(true);
+    Serial.begin(9600);
+}
 ```
 
-```
 
+## 2. DIODY
 
-## DIODY
+## 3. PRZYCISK
 
-## PRZYCISK
+## 4. CZUJNIK MAX6675
 
-## CZUJNIK
-
-## SILNIK
+## 5. SILNIK
