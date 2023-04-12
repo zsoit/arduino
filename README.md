@@ -17,6 +17,24 @@ Próg jest ustalany po wciśnięciu przycisku (jako bieżąca temperatura)
 
 # POLECENIA ARDUINO
 
+```c
+#define DIODA2 15;
+
+// void setup()
+pinMode(DIODA2,OUTPUT);
+
+// void loop()
+digitalWrite(DIODA2, HIGH);
+digitalWrite(DIODA2, LOW);
+
+analogWrite(SILNIK,PREDKOSC);
+
+//opozninie milisekundy (1000 = 1sek)
+delay(1000);
+
+
+```
+
 
 ## 1. Ustawienie PINÓW - pinMode()
 
@@ -58,6 +76,10 @@ void loop()
 ```c
 
 //PRZYCISK
+int przycisk = 16;
+
+// setup ... pinMode(przycisk,INPUT)
+
 void loop()
 {
     int a = 0;
@@ -84,11 +106,7 @@ void loop()
 
 int silnik = 19; // numer pinu
 
-void setup()
-{
-    pinMode(silnik,OUTPUT);
-    // ustawienie pinu
-}
+// setup ... pinMode(silnik,OUTPUT)
 
 void loop()
 {
