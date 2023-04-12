@@ -1,4 +1,5 @@
 
+[def]: powtorka.c
 # Owtórz plik [powtorka.c][def]
 
 ## Zaprogramować układ w taki sposób:
@@ -11,4 +12,31 @@ Próg jest ustalany po wciśnięciu przycisku (jako bieżąca temperatura)
 
 - Dodatkowo należy użyć diod LED do zwizualizowania poziomu temperatury.
 
-[def]: powtorka.c
+
+
+
+# POLECENIA ARDUINO
+
+
+## void SETUP ()
+- ustawienie PINU
+```
+int dioda1 = 14;
+int przycisk1 = 20;
+
+pinMode(dioda1,OUTPUT);
+pinMode(przycisk,INPUT);
+```
+- ustwienie czujnika MAX6675
+```
+
+```
+
+
+## DIODY
+
+## PRZYCISK
+
+## CZUJNIK
+
+## SILNIK

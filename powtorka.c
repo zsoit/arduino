@@ -15,8 +15,6 @@ int dioda7=13;
 int dioda8=14;
 
 double PROG;
-double TEMPERATURA;
-
 
 void setup()
 {
@@ -48,8 +46,7 @@ void loop()
     uint16_t val = SPI.transfer16(0);
     digitalWrite(czujnik,HIGH);
 
-    TEMPERATURA = ((val&0x7FFF)>>3)*0.25;
-    SPI.endTransaction();
+    // ((val&0x7FFF)>>3)*0.25 = ((val&0x7FFF)>>3)*0.25;
 
     //PRZYCISK
     int a = 0;
@@ -61,25 +58,29 @@ void loop()
     // PRZYCISK - WCISNIECIE
     if((a==1) && (b==0))
     {
-        PROG = TEMPERATURA ;
+        PROG = ((val&0x7FFF)>>3)*0.25 ;
 
         Serial.print("PROG - ");
         Serial.printLn(PROG);
 
     }
 
+    SPI.endTransaction();
 
-    Serial.print("Temperatura - ");
-    Serial.printLn(TEMPERATURA);
 
-    if(TEMPERATURA >= PROG)
+
+    Serial.print("TEMPERATURA - ");
+    Serial.printLn(((val&0x7FFF)>>3)*0.25);
+
+    if(((val&0x7FFF)>>3)*0.25 >= PROG)
     {
 
         // SILNIK - UROCHUMIENIE
         analogWrite(silnik,120);
 
         // DIODY WIZUALIZACJA
-        switch(TEMPERATURA)
+        /*
+        switch(((val&0x7FFF)>>3)*0.25)
         {
             case 27:
                 digitalWrite(dioda1, HIGH);
@@ -144,6 +145,7 @@ void loop()
                 break;
 
         }
+        */
     }
     delay(300);
 }
