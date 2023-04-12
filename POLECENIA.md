@@ -1,2 +1,6 @@
 # POLECENIA ARDUINO
 
+
+## DIODY
+
+## PRZYCISK

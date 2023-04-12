@@ -1,5 +1,5 @@
 include <SPI.h>
-SPISettings parSPI(100000),MSBFIRST,SPI,MODE0;
+SPISettings parSPI(10000000,MSBFIRST,SPI,MODE0);
 
 int silnik = 15;
 int czujnik = 20;
@@ -49,6 +49,7 @@ void loop()
     digitalWrite(czujnik,HIGH);
 
     TEMPERATURA = ((val&0x7FFF)>>3)*0.25;
+    SPI.endTransaction();
 
     //PRZYCISK
     int a = 0;
@@ -67,7 +68,6 @@ void loop()
 
     }
 
-    SPI.endTransaction();
 
     Serial.print("Temperatura - ");
     Serial.printLn(TEMPERATURA);
