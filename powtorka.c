@@ -5,7 +5,7 @@ int silnik = 15;
 int czujnik = 20;
 int przycisk = 19;
 
-/*
+
 int dioda1=7;
 int dioda2=8;
 int dioda3=9;
@@ -14,7 +14,7 @@ int dioda5=11;
 int dioda6=12;
 int dioda7=13;
 int dioda8=14;
-*/
+
 
 double PROG;
 
@@ -27,7 +27,6 @@ void setup()
     pinMode(czujnik,OUTPUT);
     pinMode(przycisk,INPUT);
 
-    /*
     pinMode(dioda1,OUTPUT);
     pinMode(dioda2,OUTPUT);
     pinMode(dioda3,OUTPUT);
@@ -36,7 +35,6 @@ void setup()
     pinMode(dioda6,OUTPUT);
     pinMode(dioda7,OUTPUT);
     pinMode(dioda8,OUTPUT);
-    */
 }
 
 void loop()
@@ -83,7 +81,6 @@ void loop()
         analogWrite(silnik,120);
 
         // DIODY WIZUALIZACJA
-        /*
         switch(((val&0x7FFF)>>3)*0.25)
         {
             case 27:
@@ -149,7 +146,6 @@ void loop()
                 break;
 
         }
-        */
     }
     delay(300);
 }
