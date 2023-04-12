@@ -1,12 +1,25 @@
 
-[def]: zadania/powtorka/
+# ARDUINO IDE
+Raspberry Pi Pico W C/C++\
+Emulator Online: https://wokwi.com/projects/new/pi-pico
+# ZADANIA
+<!-- SILNIK
+- [Polecenia](zadania/powtorka/polecenia.md)
+- [Zadanie 1](zadania/powtorka/zadanie1.c)
+- [Zadanie 2](zadania/powtorka/zadanie1.c)
+
+CZUJNIK
+- [Polecenia](zadania/powtorka/polecenia.md)
+- [Zadanie 1](zadania/powtorka/zadanie1.c)
+- [Zadanie 2](zadania/powtorka/zadanie1.c) -->
+
+POWTÓRKA
+- [Polecenia](zadania/powtorka/polecenia.md)
+- [Zadanie 1](zadania/powtorka/zadanie1.c)
 
 
-## ZADANIA
-- [powtorka - zad 1 ][def]
 
-
-# POLECENIA ARDUINO
+# POLECENIA
 
 ```c
 // ustawienia pinow

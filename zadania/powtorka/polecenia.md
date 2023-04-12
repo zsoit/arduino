@@ -1,4 +1,4 @@
-# Zadanie - Powtórka
+# Zadanie1 - Powtórka
 
 Zaprogramowac uklad w taki sposob:
 - aby odczytywal temperature z czujnika MAX6675,
