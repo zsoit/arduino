@@ -1,33 +1,28 @@
 
-[def]: powtorka.c
-# Owtórz plik [powtorka.c][def]
-
-## Zaprogramować układ w taki sposób:
-
--  aby odczytywał temperaturę z czujnika MAX6675,
-- a następnie na jej podstawie sterował prędkością silnika.
-
-- Silnik ma się włączać, gdy temperatura przekroczy pewien próg.
-Próg jest ustalany po wciśnięciu przycisku (jako bieżąca temperatura)
-
-- Dodatkowo należy użyć diod LED do zwizualizowania poziomu temperatury.
+[def]: zadania/powtorka/
 
 
+## ZADANIA
+- [powtorka - zad 1 ][def]
 
 
 # POLECENIA ARDUINO
 
 ```c
-#define DIODA2 15;
+// ustawienia pinow
+#define DIODA 15
+#define SILNIK 18
 
 // void setup()
-pinMode(DIODA2,OUTPUT);
+pinMode(DIODA,OUTPUT);
 
 // void loop()
-digitalWrite(DIODA2, HIGH);
-digitalWrite(DIODA2, LOW);
+digitalWrite(DIODA,HIGH);
+digitalWrite(DIODA,LOW);
 
-analogWrite(SILNIK,PREDKOSC);
+// silnik
+int predkosc = 120;
+analogWrite(SILNIK,predkosc);
 
 //opozninie milisekundy (1000 = 1sek)
 delay(1000);
@@ -40,16 +35,16 @@ delay(1000);
 
 ###
 ```c
-// PINY
-int dioda1 = 14;
-int przycisk1 = 20;
-int silnik = 18;
+// ustawienia pinow
+#define DIODA1 14
+#define SILNIK 19
+#define PRZYCISK 20
 
 void setup()
 {
-    pinMode(dioda1,OUTPUT);
-    pinMode(przycisk,INPUT);
-    pinMode(silnik,OUTPUT);
+    pinMode(DIODA1,OUTPUT);
+    pinMode(SILNIK,OUTPUT);
+    pinMode(PRZYCISK,INPUT);
 }
 ```
 
@@ -58,15 +53,15 @@ void setup()
 
 ```c
 
-int dioda1 = 15;
+#define DIODA1 14
 
 void loop()
 {
     // WŁĄCZONA
-    digitalWrite(dioda1, HIGH);
+    digitalWrite(DIODA1,HIGH);
 
     // WYŁĄCZONA
-    digitalWrite(dioda2, LOW);
+    digitalWrite(DIODA1,LOW);
 }
 ```
 
@@ -74,9 +69,7 @@ void loop()
 
 ### Wykrycie wciśnięcia
 ```c
-
-//PRZYCISK
-int przycisk = 16;
+#define PRZYCISK 16
 
 // setup ... pinMode(przycisk,INPUT)
 
@@ -85,7 +78,7 @@ void loop()
     int a = 0;
     int b = 0;
 
-    if(digitalWrite(przycisk)) a=1;
+    if(digitalWrite(PRZYCISK)) a=1;
     else a=0;
 
     // WYKRYWA WCISNIECIE
@@ -104,7 +97,7 @@ void loop()
 
 ```c
 
-int silnik = 19; // numer pinu
+#define SILNIK 18
 
 // setup ... pinMode(silnik,OUTPUT)
 
@@ -113,7 +106,7 @@ void loop()
     int predkosc = 120;
     // od 0 do 250, przy 60 sie uruchamia
 
-    analogWrite(silnik,predkosc);
+    analogWrite(SILNIK,predkosc);
 }
 ```
 
@@ -124,6 +117,10 @@ void loop()
 #include <SPI.h>
 SPISettings parSPI(10000000,MSBFIRST,SPI,MODE0);
 
+#define CZUJNIK 20
+
+double TEMPERATURA;
+
 void setup()
 {
     SPI.begin(true);
@@ -132,21 +129,24 @@ void setup()
 
 void loop()
 {
-    //CZUJNIK
-    digitalWrite(czujnik,HIGH);
+    //CZUJNIK-POMIAR
+    digitalWrite(CZUJNIK,HIGH);
 
     SPI.beginTransaction(parSPI);
-    digitalWrite(czujnik,LOW);
+    digitalWrite(CZUJNIK,LOW);
 
     uint16_t val = SPI.transfer16(0);
-    digitalWrite(czujnik,HIGH);
+    digitalWrite(CZUJNIK,HIGH);
 
     // TEMPERATURA
-    double TEMPERATURA = ((val&0x7FFF)>>3)*0.25;
+    TEMPERATURA = ((val&0x7FFF)>>3)*0.25;
     Serial.print("TEMPERATURA - ");
     Serial.printLn(TEMPERATURA);
+    //!TEMPERATURA
 
     SPI.endTransaction();
+    //!CZUJNIK-POMIAR
+
 
     delay(250); //opozninie milisekundy
 }

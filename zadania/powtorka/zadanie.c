@@ -1,7 +1,7 @@
-include <SPI.h>
+#include <SPI.h>
 SPISettings parSPI(10000000,MSBFIRST,SPI,MODE0);
 
-int silnik = 15;
+int SILNIK = 15;
 int czujnik = 20;
 int przycisk = 19;
 
@@ -23,7 +23,7 @@ void setup()
     SPI.begin(true);
     Serial.begin(9600);
 
-    pinMode(silnik,OUTPUT);
+    pinMode(SILNIK,OUTPUT);
     pinMode(czujnik,OUTPUT);
     pinMode(przycisk,INPUT);
 
@@ -78,7 +78,7 @@ void loop()
     {
 
         // SILNIK - UROCHUMIENIE
-        analogWrite(silnik,120);
+        analogWrite(SILNIK,120);
 
         // DIODY WIZUALIZACJA
         switch(((val&0x7FFF)>>3)*0.25)
