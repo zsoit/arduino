@@ -63,7 +63,7 @@ void loop()
         PROG = TEMPERATURA ;
 
         Serial.print("PROG - ");
-        Serial.printLn(TEMPERATURA);
+        Serial.printLn(PROG);
 
     }
 
