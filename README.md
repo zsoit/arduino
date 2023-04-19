@@ -57,7 +57,7 @@ analogWrite(SILNIK,predkosc);
 //opozninie milisekundy (1000 = 1sek)
 delay(1000);
 
-// SYSTEM MONITOR
+// SERIAL MONITOR
 Serial.print("TEMPERATURA - ");
 Serial.println(TEMPERATURA);
 
