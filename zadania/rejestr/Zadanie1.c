@@ -1,4 +1,4 @@
-// odczytanie rejestru
+// odczytanie rejestru urzadzenia
 
 #include <Wire.h>
 #define DevAddress 0x40
