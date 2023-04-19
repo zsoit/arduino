@@ -13,9 +13,24 @@ CZUJNIK
 - [Zadanie 1](zadania/powtorka/zadanie1.c)
 - [Zadanie 2](zadania/powtorka/zadanie1.c) -->
 
+PROTOKÓŁ 12C
+- [Zadanie 1](zadania/rejestr/Zadanie1.c)
+- [Zadanie 2](zadania/rejestr/Zadanie2.c)
+
+
 POWTÓRKA
 - [Polecenia](zadania/powtorka/polecenia.md)
 - [Zadanie 1](zadania/powtorka/zadanie1.c)
+
+
+
+# SPIS TREŚCI
+1. [USTAWIENIA PINÓW](#1-ustawienie-pinów---pinmode)
+2. [DIODY](#2-diody)
+3. [PRZYCISK](#3-przycisk)
+4. [SILNIK](#4-silnik)
+5. [CZUJNIK MAX6675](#5-czujnik-max6675)
+6. [OBSŁUGA PROTOKOŁU 12C](#6-obsługa-protokołu-12-c)
 
 
 
@@ -30,19 +45,23 @@ POWTÓRKA
 pinMode(DIODA,OUTPUT);
 
 // void loop()
+// DIODA/CZUJNIK
 digitalWrite(DIODA,HIGH);
 digitalWrite(DIODA,LOW);
 
-// silnik
+// SILNIK
 int predkosc = 120;
+// od 0 do 250, przy 60 sie uruchamia
 analogWrite(SILNIK,predkosc);
 
 //opozninie milisekundy (1000 = 1sek)
 delay(1000);
 
+// SYSTEM MONITOR
+Serial.print("TEMPERATURA - ");
+Serial.println(TEMPERATURA);
 
 ```
-
 
 ## 1. Ustawienie PINÓW - pinMode()
 
@@ -83,13 +102,13 @@ void loop()
 ### Wykrycie wciśnięcia
 ```c
 #define PRZYCISK 16
-
+int a,b;
 // setup ... pinMode(przycisk,INPUT)
 
 void loop()
 {
-    int a = 0;
-    int b = 0;
+    a = 0;
+    b = 0;
 
     if(digitalWrite(PRZYCISK)) a=1;
     else a=0;
@@ -103,6 +122,7 @@ void loop()
 
 
 ```
+
 ## 4. SILNIK
 - void loop()
 
@@ -154,7 +174,7 @@ void loop()
     // TEMPERATURA
     TEMPERATURA = ((val&0x7FFF)>>3)*0.25;
     Serial.print("TEMPERATURA - ");
-    Serial.printLn(TEMPERATURA);
+    Serial.println(TEMPERATURA);
     //!TEMPERATURA
 
     SPI.endTransaction();
@@ -167,3 +187,45 @@ void loop()
 
 ```
 
+
+## 6. OBSŁUGA PROTOKOŁU 12C
+```c
+
+#define DevAddress 0x40
+#define Rejestr 0x00 //0x4127
+#define RejestrPradu 0x01 //1 bit to 25uA
+#define RejestrNapiecia 0x02 //1 bit to 1.25mV
+
+// delay(28) - opoznienie minimum 28s
+
+void setup()
+{
+    // deklarcja pinow do komunikacji
+    Wire.setSDA(PIN_1);
+    Wire.setSDA(PIN_2);
+
+    // deklaracja czestoliwosci komunikacji
+    Wire.setClock(1000);
+    // 1000-ilosc bitow na sekunde
+
+    // uruchomienie modułu komunikacji
+    Wire.begin();
+}
+
+void loop()
+{
+    // start komunikacji
+    Wire.beginTransmission(DevAddress);
+
+    // wyslanie danych na szyne
+    Wire.write(0x00);
+
+    // koniec komunikacji
+    Wire.endTransmission();
+
+    delay(100);
+
+    // odczyt danych z szyny
+    Wire.requestFrom(DevAddress, 2, true);
+}
+```
