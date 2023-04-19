@@ -30,7 +30,7 @@ POWTÓRKA
 3. [PRZYCISK](#3-przycisk)
 4. [SILNIK](#4-silnik)
 5. [CZUJNIK MAX6675](#5-czujnik-max6675)
-6. [OBSŁUGA PROTOKOŁU 12C](#6-obsługa-protokołu-12-c)
+6. [OBSŁUGA PROTOKOŁU 12C](#6-obsługa-protokołu-12c)
 
 
 
@@ -191,10 +191,13 @@ void loop()
 ## 6. OBSŁUGA PROTOKOŁU 12C
 ```c
 
-#define DevAddress 0x40
-#define Rejestr 0x00 //0x4127
+#define RejestrUrzadzenia 0x40
+#define RejestrSzyna 0x00 //0x4127
 #define RejestrPradu 0x01 //1 bit to 25uA
 #define RejestrNapiecia 0x02 //1 bit to 1.25mV
+
+#define PIN_1 0
+#define PIN_2 1
 
 // delay(28) - opoznienie minimum 28s
 
@@ -215,10 +218,10 @@ void setup()
 void loop()
 {
     // start komunikacji
-    Wire.beginTransmission(DevAddress);
+    Wire.beginTransmission(RejestrUrzadzenia);
 
     // wyslanie danych na szyne
-    Wire.write(0x00);
+    Wire.write(RejestrSzyna);
 
     // koniec komunikacji
     Wire.endTransmission();
@@ -226,6 +229,12 @@ void loop()
     delay(100);
 
     // odczyt danych z szyny
-    Wire.requestFrom(DevAddress, 2, true);
+    Wire.requestFrom(RejestrUrzadzenia, 2, true);
+
+    // odczyt danych z rejestru
+    dane = 0;
+    dane = Wire.read();
+    dane = (dane << 8) | Wire.read();
+
 }
 ```
